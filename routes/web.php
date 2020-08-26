@@ -13,6 +13,11 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+/*Route::get('/', function () {return view('welcome');});*/
+
+Route::get('/', 'PageController@index')->name('home');
+Route::get('contact', 'PageController@contact')->name('contact');
+Route::get('users', 'PageController@users');
+Route::get('users/{id}', 'PageController@user')->where('id', '[1-9]+');
+Route::get('{salutation}/{nom}', 'PageController@salutation')
+    ->where(['salutation' => '[a-zA-Z]+', 'nom' => '[a-zA-Z]+[0-9]']);
