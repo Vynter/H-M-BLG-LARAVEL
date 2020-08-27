@@ -4,8 +4,7 @@ use Faker\Factory;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
-
-class users extends Seeder
+class articles extends Seeder
 {
     /**
      * Run the database seeds.
@@ -20,13 +19,13 @@ class users extends Seeder
 
         //DB::table('users')->truncate(); //c'est pour truncate la table
 
-        for ($i = 1; $i <= 10; $i++) {
+        for ($i = 1; $i <= 100; $i++) {
             array_push($data, [
-                'name' => $faker->name,
-                'email' => $faker->email,
-                'password' => bcrypt(123456)
+                'name' => $faker->sentence,
+                'body' => $faker->realText(2000),
+                'published_at' => $faker->datetime(),
             ]);
         }
-        DB::table('users')->insert($data);
+        DB::table('articles')->insert($data);
     }
 }
