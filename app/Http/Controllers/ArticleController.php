@@ -39,6 +39,7 @@ class ArticleController extends Controller
             'published_at' => '2020/10/10 00:00:01'
         ]);
     }
+
     public function destroy()
     {
         Article::where('id', 103)->delete();
