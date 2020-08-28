@@ -11,7 +11,19 @@ class ArticleController extends Controller
     public function index()
     {
         //return DB::table('articles')->get();
-        return Article::all();
+        $articles =  Article::all();
+        return view('articles.index', compact('articles'));
+        //return view('articles.index', ['articles' => $articles]);
+        /*technique d'envoi avec variable**
+        *return view('articles.index', compact('articles', 'users'...etc))
+        *return view('articles.index')->with('articles' , $articles)
+        *return view('articles.index')->withArticles($articles)
+        */
+    }
+    public function show($id)
+    {
+        $article = Article::findorfail($id);
+        return view('articles.show', compact('article'));
     }
     public function store()
     {
@@ -39,7 +51,6 @@ class ArticleController extends Controller
             'published_at' => '2020/10/10 00:00:01'
         ]);
     }
-
     public function destroy()
     {
         Article::where('id', 103)->delete();
