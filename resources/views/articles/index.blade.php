@@ -2,8 +2,6 @@
 
 @section('title','Mon blog')
 
-
-
 @section('content')
 
 <form class="form-inline m-5" action="">
@@ -16,15 +14,12 @@
         <h1>Liste des articles</h1>
         @foreach ($articles as $article)
             <div class="border-bottom">
-                <h2>{{$article->id.' - '.$article->name }} <small>{{$article->PublishedAtFormated}}</small></h2>
+                <h2>{{$article->id.' - '}} {!! $article->nameSearchable !!} <small>{{$article->PublishedAtFormated}}</small></h2>
                 <p>{{Str::limit($article->body, 150,'...etc') }}</p> <!--Avant la 5.8 str_limit($var,150)-->
-                <p style="font-style: italic;">Publié par: {{ $article->user->name }}</p>
+                <p style="font-style: italic;">Publié par: {{ $article->creator->name }}</p>
                 <a class="btn btn-primary  mb-4" href="{{ route('articles.show',$article->id) }}">voir plus </a>
-
             </div>
         @endforeach
-
-
     </div>
 
     <div class="col-sm-3">

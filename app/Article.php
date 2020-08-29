@@ -11,16 +11,25 @@ class Article extends Model
     protected $dates = [
         'published_at',
     ];
+    //------------------------------------------Attribute (mutator)
     public function getPublishedAtFormatedAttribute()
     {
         //return Carbon::parse($this->published_at)->diffForhumans();
         return $this->published_at->diffForhumans();
     }
+    public function getNameSearchableAttribute()
+    {
+        return str_replace(request('q'), '<mark>' . request('q') . '</mark>', $this->name);
+    }
 
+    //------------------------------------------Scope
     public function scopeRecherche($q)
     {
         $q->where('name', 'like', '%' . request('q') . '%')
-            ->orWhere('body', 'like', '%' . request('q') . '%');
+            ->orWhere('body', 'like', '%' . request('q') . '%')
+            ->orWherehas('creator', function ($user) { // orWherehas('creator', function ($user) use($q) dans le cas ou on declare $q=request('q')
+                $user->where('name', 'like', '%' . request('q') . '%');
+            });
     }
 
     /**
@@ -36,9 +45,15 @@ class Article extends Model
         //$q->latest('published_at')->paginate(10, ['id', 'name'], 'feuille');
         //$lastArticles = Article::latest('published_at')->paginate(10, ['id', 'name'], 'feuille'); la base
     }
+
+
     /**relation one to many */
-    public function user()
+    public function creator()
     {
-        return $this->belongsTo(User::class);
+        /**
+         * il y a deux solutions a cela ou bien nomé la methode user afin que belogsTo fais le lien avec user_id
+         * dans le cas ou la mathode a un autre nom on rajotue un second paramétre user_id
+         */
+        return $this->belongsTo(User::class, 'user_id');
     }
 }

@@ -5,7 +5,7 @@
 
 
 @section('content')
-<div class="row">
+<div class="row m-5">
     <div class="col-sm-9">
         <h1>{{$article->id.' - '.$article->name }}</h1>
         <small>publié il y a : {{ $article->PublishedAtFormated }}</small>
@@ -18,8 +18,7 @@
 
 </div>
 <br>
-<br>
-    <div class="float-right">
+    <div class="float-right mb-5">
         <a href="{{route('articles')}}">Revenir a la liste des articles <i class="fas fa-arrow-right"></i></a>
     </div>
 
