@@ -26,5 +26,5 @@ Route::get('{salutation}/{nom}', 'PageController@salutation')
 Route::get('articles', 'ArticleController@index')->name('articles');
 Route::get('articles/create', 'ArticleController@store');
 Route::get('articles/update', 'ArticleController@update');
-Route::get('articles/{id}', 'ArticleController@show')->where('id', '[1-9]+')->name('articles.show');
+Route::get('articles/{id}', 'ArticleController@show')->name('articles.show');
 Route::get('articles/delete', 'ArticleController@destroy');

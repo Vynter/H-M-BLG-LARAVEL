@@ -6,8 +6,13 @@
 
 @section('content')
 
+<form class="form-inline mb-5" action="">
+    <input type="text" class="form-control" name="q" value="{{request('q')}}" >
+    <button class="btn btn-primary">Recherche</button>
+</form>
+
 <div class="row">
-    <div class="col-sm-8">
+    <div class="col-sm-9">
         <h1>Liste des articles</h1>
         @foreach ($articles as $article)
             <div class="border-bottom">
@@ -20,17 +25,13 @@
 
 
     </div>
-    <div class="col-sm-4">
-        <h3>les derniers articles</h3>
-        @foreach ($lastArticles as $lastArticle)
 
-            <li><a href="{{route('articles.show',$lastArticle)}}"> {{$lastArticle->name}}</a></li>
-
-        @endforeach
+    <div class="col-sm-3">
+        @include('widgets.latest_articles')
     </div>
 
 </div>
 <div class="mt-5 justify-content-center d-flex">
-    {{ $articles->links() }} <!--c pour la pagination-->
+    {{ $articles->appends(request()->all())->links() }} <!--c pour la pagination-->
 </div>
 @endsection

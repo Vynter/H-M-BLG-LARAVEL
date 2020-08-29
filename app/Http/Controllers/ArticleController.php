@@ -10,17 +10,22 @@ class ArticleController extends Controller
 {
     public function index()
     {
-        //return DB::table('articles')->get();  une des solutions
-        //$articles =  Article::all(); // affiche tout
-        $articles = Article::paginate(20); // c'est pour la pagination
-        //$lastArticles = Article::orderBy('published_at', 'DESC')->take(10)->get();
-        //same as above take the last 10 articles
-        $lastArticles = Article::orderBy('published_at')->paginate(10);
+        /*$articles = Article::where('name', 'like', '%' . request('q') . '%')
+            ->orWhere('body', 'like', '%' . request('q') . '%')
+            ->paginate(20); */                             // Version normal
+        $articles  = Article::recherche()->paginate(10); // Version en utilisant un scoop
+
+        //$articles = Article::paginate(20); // c'est pour la pagination
+        /**
+         * return DB::table('articles')->get();  une des solutions
+         * $articles =  Article::all(); // affiche tout
+         * $lastArticles = Article::orderBy('published_at', 'DESC')->take(10)->get();
+         * same as above take the last 10 articles// sauf qu'on a du changer le nom de la page en 'feuille'
+         * pour ne pas avoir de conflie avec le paginate d'en haut
+         * $lastArticles = Article::latest('published_at')->paginate(10, ['id', 'name'], 'feuille');*/
 
 
-
-
-        return view('articles.index', compact('articles', 'lastArticles'));
+        return view('articles.index', compact('articles'/*, 'lastArticles'*/));
 
         //return view('articles.index', ['articles' => $articles]);
         /*technique d'envoi avec variable**
