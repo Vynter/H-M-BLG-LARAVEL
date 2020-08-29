@@ -23,7 +23,7 @@ Route::get('{salutation}/{nom}', 'PageController@salutation')
     ->where(['salutation' => '[a-zA-Z]+', 'nom' => '[a-zA-Z]+[0-9]']);
 
 //Article routes
-Route::get('articles', 'ArticleController@index');
+Route::get('articles', 'ArticleController@index')->name('articles');
 Route::get('articles/create', 'ArticleController@store');
 Route::get('articles/update', 'ArticleController@update');
 Route::get('articles/{id}', 'ArticleController@show')->where('id', '[1-9]+')->name('articles.show');
