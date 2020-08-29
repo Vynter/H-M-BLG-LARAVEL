@@ -13,7 +13,7 @@ class ArticleController extends Controller
         /*$articles = Article::where('name', 'like', '%' . request('q') . '%')
             ->orWhere('body', 'like', '%' . request('q') . '%')
             ->paginate(20); */                             // Version normal
-        $articles  = Article::recherche()->paginate(10); // Version en utilisant un scoop
+        $articles  = Article::recherche()->paginate(20); // Version en utilisant un scoop
 
         //$articles = Article::paginate(20); // c'est pour la pagination
         /**

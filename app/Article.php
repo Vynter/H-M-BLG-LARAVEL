@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\User;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 
@@ -34,5 +35,10 @@ class Article extends Model
         $q->latest('published_at')->take($nb);
         //$q->latest('published_at')->paginate(10, ['id', 'name'], 'feuille');
         //$lastArticles = Article::latest('published_at')->paginate(10, ['id', 'name'], 'feuille'); la base
+    }
+    /**relation one to many */
+    public function user()
+    {
+        return $this->belongsTo(User::class);
     }
 }
