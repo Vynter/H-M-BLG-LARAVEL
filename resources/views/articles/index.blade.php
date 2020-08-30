@@ -15,8 +15,8 @@
         @foreach ($articles as $article)
             <div class="border-bottom">
                 <h2>{{$article->id.' - '}} {!! $article->nameSearchable !!} <small>{{$article->PublishedAtFormated}}</small></h2>
-                <p>{{Str::limit($article->body, 150,'...etc') }}</p> <!--Avant la 5.8 str_limit($var,150)-->
-                <p style="font-style: italic;">Publié par: {{ $article->creator->name }}</p>
+                <p>{!!Str::limit($article->bodySearchable, 150,'...etc') !!}</p> <!--Avant la 5.8 str_limit($var,150)-->
+                <p style="font-style: italic;">Publié par: {!! $article->creator->nameSearchable !!}</p>
                 <a class="btn btn-primary  mb-4" href="{{ route('articles.show',$article->id) }}">voir plus </a>
             </div>
         @endforeach

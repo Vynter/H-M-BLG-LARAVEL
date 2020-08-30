@@ -36,4 +36,10 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    //------------------------------------------Attribute (mutator)
+    public function getNameSearchableAttribute()
+    {
+        return str_replace(request('q'), '<mark class="bg-warning">' . request('q') . '</mark>', $this->name);
+    }
 }

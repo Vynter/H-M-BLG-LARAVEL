@@ -19,7 +19,11 @@ class Article extends Model
     }
     public function getNameSearchableAttribute()
     {
-        return str_replace(request('q'), '<mark>' . request('q') . '</mark>', $this->name);
+        return str_replace(request('q'), '<mark class="bg-warning">' . request('q') . '</mark>', $this->name);
+    }
+    public function getBodySearchableAttribute()
+    {
+        return str_replace(request('q'), '<mark class="bg-danger">' . request('q') . '</mark>', $this->body);
     }
 
     //------------------------------------------Scope
