@@ -21,10 +21,12 @@ class Article extends Model
         //return Carbon::parse($this->published_at)->diffForhumans();
         return $this->published_at->diffForhumans();
     }
+
     public function getNameSearchableAttribute()
     {
         return str_replace(request('q'), '<mark class="bg-warning">' . request('q') . '</mark>', $this->name);
     }
+
     public function getBodySearchableAttribute()
     {
         return str_replace(request('q'), '<mark class="bg-danger">' . request('q') . '</mark>', $this->body);

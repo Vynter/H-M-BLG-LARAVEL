@@ -20,14 +20,18 @@ class ArticleController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth'); // si vous n'etes pas co ca vous renvoi a login
+        //$this->middleware('auth')->only(['create', 'store']); // si vous n'etes pas co ca vous renvoi a login
+        //2eme écriture
+        $this->middleware('auth')->except(['index']);
     }
+
     public function index()
     {
         /*$articles = Article::where('name', 'like', '%' . request('q') . '%')
             ->orWhere('body', 'like', '%' . request('q') . '%')
             ->paginate(20); */                             // Version normal
-        $articles  = Article::recherche()->latest('id')->paginate(20); // Version en utilisant un scoop
+        //creator cf  methode dans Article c pour accéder au user // le with c pour joindre dans la requéte le user
+        $articles  = Article::recherche()->latest('id')->with('tags', 'creator')->paginate(20); // Version en utilisant un scoop
 
         //$articles = Article::paginate(20); // c'est pour la pagination
         /**
@@ -48,11 +52,13 @@ class ArticleController extends Controller
         *return view('articles.index')->withArticles($articles)
         */
     }
+
     public function show($id)
     {
         $article = Article::findorfail($id);
         return view('articles.show', compact('article'));
     }
+
     public function create()
     {
 
@@ -83,7 +89,7 @@ class ArticleController extends Controller
         //2eme methode
         Auth::user()->articles()->create(request()->all());
         // 3eme methode auth()->user()->articles()->create(request()->all());
-        return redirect()->route('articles.index');
+        return redirect()->route('articles.index')->withSuccess('Article creer avec succée');
     }
 
     public function update()
@@ -99,6 +105,7 @@ class ArticleController extends Controller
             'published_at' => '2020/10/10 00:00:01'
         ]);
     }
+
     public function destroy()
     {
         Article::where('id', 103)->delete();
