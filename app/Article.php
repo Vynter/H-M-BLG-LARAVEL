@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\Tag;
 use App\User;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
@@ -11,6 +12,9 @@ class Article extends Model
     protected $dates = [
         'published_at',
     ];
+
+    protected $fillable = ['name', 'body', 'published_at', 'user_id'];
+
     //------------------------------------------Attribute (mutator)
     public function getPublishedAtFormatedAttribute()
     {
@@ -51,6 +55,9 @@ class Article extends Model
     }
 
 
+    //---------------------------Relation
+
+
     /**relation one to many */
     public function creator()
     {
@@ -59,5 +66,10 @@ class Article extends Model
          * dans le cas ou la mathode a un autre nom on rajotue un second paramétre user_id
          */
         return $this->belongsTo(User::class, 'user_id');
+    }
+    /**relation many to mnay */
+    public function tags()
+    {
+        return $this->belongsToMany(Tag::class);
     }
 }

@@ -42,4 +42,10 @@ class User extends Authenticatable
     {
         return str_replace(request('q'), '<mark class="bg-warning">' . request('q') . '</mark>', $this->name);
     }
+
+    //------------------------------------------Relation
+    public function articles()
+    {
+        return $this->hasMany(Article::class);
+    }
 }

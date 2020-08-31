@@ -19,7 +19,7 @@
 </div>
 <br>
     <div class="float-right mb-5">
-        <a href="{{route('articles')}}">Revenir a la liste des articles <i class="fas fa-arrow-right"></i></a>
+        <a href="{{route('articles.index')}}">Revenir a la liste des articles <i class="fas fa-arrow-right"></i></a>
     </div>
 
 

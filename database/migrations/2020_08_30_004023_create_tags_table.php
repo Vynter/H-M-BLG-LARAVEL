@@ -14,8 +14,20 @@ class CreateTagsTable extends Migration
     public function up()
     {
         Schema::create('tags', function (Blueprint $table) {
-            $table->id();
+            $table->increments('id');
+            $table->string('name');
             $table->timestamps();
+        });
+
+        //table de relation avec article
+        Schema::create('article_tag', function (Blueprint $table) {
+            $table->increments('id');
+            $table->unsignedInteger('article_id');
+            $table->unsignedInteger('tag_id');
+            $table->timestamps();
+
+            $table->foreign('article_id')->references('id')->on('articles')->onDelete('cascade');
+            $table->foreign('tag_id')->references('id')->on('tags')->onDelete('cascade');
         });
     }
 
@@ -27,5 +39,6 @@ class CreateTagsTable extends Migration
     public function down()
     {
         Schema::dropIfExists('tags');
+        Schema::dropIfExists('article_tag');
     }
 }

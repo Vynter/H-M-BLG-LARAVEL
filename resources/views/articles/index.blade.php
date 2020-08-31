@@ -17,6 +17,10 @@
                 <h2>{{$article->id.' - '}} {!! $article->nameSearchable !!} <small>{{$article->PublishedAtFormated}}</small></h2>
                 <p>{!!Str::limit($article->bodySearchable, 150,'...etc') !!}</p> <!--Avant la 5.8 str_limit($var,150)-->
                 <p style="font-style: italic;">Publié par: {!! $article->creator->nameSearchable !!}</p>
+                @if ($article->tags->isNotEmpty())
+                <p>Tags : {{($article->tags->pluck('name')->implode(', '))}}</p>
+                <!--pluck regroupe tt les name dans un tableau et implode passe en str-->
+                @endif
                 <a class="btn btn-primary  mb-4" href="{{ route('articles.show',$article->id) }}">voir plus </a>
             </div>
         @endforeach

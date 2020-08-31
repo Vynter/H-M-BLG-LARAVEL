@@ -12,6 +12,7 @@
 </head>
 <body>
     <div class="container">
+        @include('widgets.messages')
 
             @yield('content')
     </div>
